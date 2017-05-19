@@ -1,6 +1,8 @@
 import Vue from 'vue'
 
-let myTunes = {}
+let myTunes = {
+
+}
 
 // THESE ARE SIMPLE HELPER FUNCTIONS TO KEEP YOUR MYTUNES IN LOCAL STORAGE
 // WE WILL EVENTUALLY BE REPLACING THESE GUYS BUT NOT TODAY :)
@@ -12,17 +14,20 @@ function saveMytunes() {
 }
 
 function loadMytunes() {
-  myTunes = JSON.parse(localStorage.getItem('myTunes')) || {}
+  myTunes = JSON.parse(localStorage.getItem('myTunes')) || {songs: []}
 }
 
 loadMytunes()
 
 export default {
-  getTracks() { },
+  getTracks() {
+    return myTunes
+   },
   addTrack(track) {
     // OCCASIONALLY YOU WILL RUN INTO ISSUES WHERE VUE WILL BE
     // UNAWARE THAT A CHANGE HAS OCCURED TO YOUR DATA
-    // TO ELIMINATE THIS PROBLEM YOU CAN USE 
+    // TO ELIMINATE THIS PROBLEM YOU CAN USE
+    myTunes.songs.push(track)
     Vue.set(myTunes, track.id, track)
     saveMytunes()
     // YOU CAN READ MORE ABOUT VUE.SET HERE
